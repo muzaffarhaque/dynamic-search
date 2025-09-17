@@ -1,0 +1,301 @@
+// common css start
+@import url( 'https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+* {
+    font-family: 'Inter','Lato', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 1440px;
+    width: 100%;
+    padding: 0 70px;
+}
+.mb-flex,
+.mb-show {
+    display: none;
+}
+.mw-520 {
+    max-width: 520px;
+    width: 100%;
+}
+.black-2 {
+    color: rgba(10, 10, 10,.8);
+}
+.gray-828 {
+      color: #828282;
+}
+.pointer {
+    cursor: pointer;
+}
+.mw-150 {
+    max-width: 150px;
+    width: 100%;
+}
+.mw-101 {
+    max-width: 101px;
+    width: 100%;
+}
+.mw-60 {
+    max-width: 60px;
+    width: 100%;
+}
+.h-60 {
+    height: 60px;
+}
+.shimmer {
+    width: 200%;
+    background-image: linear-gradient(90deg, rgba(239, 238, 238, 0.1) 25%, white 50%, rgba(239, 238, 238, 0.1) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    background-color: rgba(209, 205, 205,.3);
+}
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+        // background-color: $grey-ECE;
+    }
+    100% {
+        background-position: -200% 0;
+        // background-color: $grey-ECE;
+    }
+}
+.input-box {
+    border-radius: 0.4rem;
+    border: 1px solid gray;
+    background: white;
+    color: black;
+    width: 100%;
+    max-width: 34rem;
+    padding: 0.6rem 1rem;
+    outline: none;
+    &::placeholder {
+        color: black;
+        opacity: 0.5;
+    }
+}
+.outlate-wrapper{
+    padding-top: 70px;
+}
+// ============== FONT SIZE ===========================
+.fs-34-28 {
+    font-size: 34px;
+    line-height: 41px;
+}
+.fs-28-18 {
+    font-size: 28px;
+    line-height: 32px;
+}
+.fs-24-16 {
+    font-size: 24px;
+    line-height: 28px;
+}
+.fs-18-14 {
+    font-size: 18px;
+    line-height: 22px;
+}
+.fs-16-13 {
+    font-size: 16px;
+    line-height: 20px;
+}
+.fs-14-12 {
+    font-size: 14px;
+    line-height: 16px;
+}
+// ============== FONT SIZE ===========================
+// *=================== ALL PRODUCT PAGE START ---------------------------
+// 
+.pagination-wrapper {
+    width: 100%;
+    max-width: 500px;
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px 0;
+
+}
+.all-product-header {
+    padding: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+// *=================== ALL PRODUCT PAGE START ---------------------------
+// 
+// ====================  DROPDOWN CSS START =============================
+.dropdown_wrapper{
+    position: relative;
+    width: 100%;
+
+    &.active .setting_icon{
+        transform: rotate(-50deg);
+        transition: all 0.3s ease;
+    }
+    .drop_title{
+      height: 100%;
+      .setting_icon{
+         transform: rotate(0deg);
+      }
+    }
+    .dropdown_menu{
+        width: 100vw;
+        max-width: 160px;
+        position: absolute;
+        top: 39px;
+        right: 0;
+        background: white;
+        border-radius: 0.4rem;
+        box-shadow: 0 0 10px rgba(0,0,0,.1);
+        z-index: 10;
+        padding: 0.4rem 0;
+        list-style: none;
+        li{
+            padding: 0.4rem 1rem;
+            color: #000;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .name_icon{
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            &.disable{
+                color: #828282;
+            }
+            cursor: pointer;
+            &:hover{
+                background: rgba(0,0,0,.05);
+            }
+        }
+    }
+    
+}
+.custom_toggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  width: 30px;
+  height: 19px;
+  border-radius: 50px;
+  background: #ddd;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  padding: 2px;
+}
+
+.toggle_button {
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+/* hide input */
+.toggle_input {
+  display: none;
+}
+
+/* when checked → move circle and change bg */
+.toggle_input:checked + .custom_toggle {
+  background: #000000;
+}
+
+.toggle_input:checked + .custom_toggle .toggle_button {
+  transform: translateX(12px);
+}
+
+// ====================  DROPDOWN CSS END =============================
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+@media (max-width:820px) {
+    .container {
+        padding: 0 5%;
+    }
+    .mb-show {
+        display: block;
+    }
+    .mb-flex {
+        display: flex;
+    }
+    .desk-show {
+        display: none;
+    }
+    .mb-full {
+        width: 100%;
+
+    }
+    // ============== FONT SIZE ===========================
+    .fs-34-28 {
+        font-size: 28px;
+        line-height: 32px;
+    }
+    .fs-28-18 {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .fs-24-16 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .fs-18-14 {
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .fs-16-13 {
+        font-size: 13px;
+        line-height: 16px;
+    }
+    .fs-14-12 {
+        font-size: 12px;
+        line-height: 15px;
+    }
+    // ============== FONT SIZE ===========================
+
+}
+
+
+
