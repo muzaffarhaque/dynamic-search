@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import commonGetApi from '../server/Api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  faArrowUpRightFromSquare, faL, faLink, faListUl, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import {  faArrowUpRightFromSquare, faFile, faFolder, faL, faLink, faListUl, faMagnifyingGlass, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { faUser,faComment } from "@fortawesome/free-regular-svg-icons";  // Regular style
 import { faPaperclip, faCog } from "@fortawesome/free-solid-svg-icons"; // Solid style (no regular version)
 import userProfile from "../assets/images/user.jfif";
@@ -131,18 +131,29 @@ export default function Home() {
     ...tab,
     animatedCount: useCountAnimation(tab.count, 800),
   }));
+
+
+  const listIcons ={
+    'file':<FontAwesomeIcon icon={faFile} />,
+    'pdf':<FontAwesomeIcon icon={faFile} />,
+    'folder':<FontAwesomeIcon icon={faFolder} />,
+    'video' :<FontAwesomeIcon icon={faPlay} />
+  }
   return (
     <section className="main-home-section">
       <div className="search_card_box">
         <div className="search_header_frame">
           {!loading ? (
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
+            <div className="search-icon">
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </div>
+
           ) : (
             <span className="search_loader"></span>
           )}
 
           <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Searching is easier" />
-          <p className="clear_text">Clear</p>
+          <p className="clear_text" onClick={()=>setSearchTerm("")}>Clear</p>
         </div>
         {searchTerm && <>
         <div className="parent_tab_wrapper">
@@ -192,10 +203,16 @@ export default function Home() {
                   return (
                     <li key={index}>
                       <div className="user_details">
+                        {item?.type !=="user" ?
+                         <div className="profile_logo">
+                         {listIcons[item?.type] }
+                         </div>
+                         :
                         <div className="image_profile_frame">
-                          <img src={userProfile} alt="" />
+                          <img src={item.avatar || userProfile} alt="" />
                           <span className="dotes"></span>
                         </div>
+                        }
                         <div className="description_paragraph">
                           <h5 className="fs-16-13">
                             {HighlightText(item?.name, searchTerm)}
