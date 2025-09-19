@@ -14,11 +14,11 @@ import useCountAnimation from '../hooks/useCountAnimation';
 export default function Home() {
   const [searchData,setSearchData]=useState([]);
     const [tabs, setTabs] = useState([
-    { name: "All", icon: "", count: searchData?.length, isChecked: true },
-    { name: "File", icon: <FontAwesomeIcon icon={faPaperclip} />, count: 0, isChecked: true },
-    { name: "People", icon: <FontAwesomeIcon icon={faUser} />, count: 0, isChecked: true },
-    { name: "Chat", icon: <FontAwesomeIcon icon={faComment} />, count: 0, isChecked: false },
-    { name: "List", icon: <FontAwesomeIcon icon={faListUl} />, count: 0, isChecked: false },
+    { name: "All", icon: "", count: searchData?.length, isChecked: true ,data:searchData},
+    { name: "File", icon: <FontAwesomeIcon icon={faPaperclip} />, count: 0, isChecked: true,data:[] },
+    { name: "People", icon: <FontAwesomeIcon icon={faUser} />, count: 0, isChecked: true ,data:[]},
+    { name: "Chat", icon: <FontAwesomeIcon icon={faComment} />, count: 0, isChecked: false ,data:[] },
+    { name: "List", icon: <FontAwesomeIcon icon={faListUl} />, count: 0, isChecked: false ,data:[] },
     // { name: "PDF", icon: <FontAwesomeIcon icon={faListUl} />, count: 0, isChecked: false },
   ]);
   const [loading,setLoading] = useState(false);
@@ -99,26 +99,30 @@ export default function Home() {
       const grouped =groupBy(filteredData, "type");
       const typeObj = { File: "file", People: "user", Chat: "video", List: "folder",PDF:'file' };
       console.log(grouped, "grouped");
-     setTabs((prevTabs) =>
-       prevTabs.map((tab) => {
-         let count = 0;
+  setTabs((prevTabs) =>
+  prevTabs.map((tab) => {
+    let count = 0;
+    let data = [];
 
-         if (tab.name === "All") {
-           count = filteredData?.length;
-         } else if (tab.name === "File") {
-           // File count = file + pdf
-           const fileCount = grouped["file"] ? grouped["file"].length : 0;
-           const pdfCount = grouped["pdf"] ? grouped["pdf"].length : 0;
-           count = fileCount + pdfCount;
-         } else {
-           const mappedType = typeObj[tab.name];
-           count = grouped[mappedType] ? grouped[mappedType].length : 0;
-         }
+    if (tab.name === "All") {
+      count = filteredData?.length || 0;
+      data = filteredData || [];
+    } else if (tab.name === "File") {
+      // File count = file + pdf
+      const fileData = grouped["file"] || [];
+      const pdfData = grouped["pdf"] || [];
+      count = fileData.length + pdfData.length;
+      data = [...fileData, ...pdfData];
+    } else {
+      const mappedType = typeObj[tab.name]; // e.g. "user", "video", "folder"
+      const tabData = grouped[mappedType] || [];
+      count = tabData.length;
+      data = tabData;
+    }
 
-         return { ...tab, count };
-       })
-     );
-
+    return { ...tab, count, data };
+  })
+);
 
       setLoading(false);
     }, 500); // wait 500ms after last key stroke
@@ -131,6 +135,7 @@ export default function Home() {
     ...tab,
     animatedCount: useCountAnimation(tab.count, 800),
   }));
+;
 
 
   const listIcons ={
@@ -139,6 +144,10 @@ export default function Home() {
     'folder':<FontAwesomeIcon icon={faFolder} />,
     'video' :<FontAwesomeIcon icon={faPlay} />
   }
+
+  const activeTab = tabs.find(
+  (tab) => tab.name === selectedTab || (selectedTab === 0 && tab.name === "All")
+);
   return (
     <section className="main-home-section">
       <div className="search_card_box">
@@ -164,9 +173,9 @@ export default function Home() {
               return (
                 <div
                   className={`tab fs-16-13 ${
-                    i == selectedTab ? "selected" : ""
+                    ele?.name == selectedTab ? "selected" : ""
                   }`}
-                  onClick={() => setSelectedTab(i)}
+                  onClick={() => setSelectedTab(ele?.name)}
                   key={i}
                 >
                   {" "}
@@ -199,7 +208,7 @@ export default function Home() {
           <ul>
             {!loading ? (
               searchData && searchData?.length > 0 ? (
-                searchData?.map((item, index) => {
+                activeTab.data?.map((item, index) => {
                   return (
                     <li key={index}>
                       <div className="user_details">
